@@ -8,105 +8,128 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-[#E0E1DD]">
+<body class="bg-pink-50 font-sans text-gray-800">
 
-    <nav class="bg-[#1B263B] p-6 text-white flex justify-between items-center shadow-lg">
-        <h1 class="text-2xl font-bold tracking-widest"><div class="text-xl font-bold text-white">
-                ELITE<span class="text-[#E67E22]">CANINA</span>
-            </div></h1>
-        <div class="space-x-6">
-            <a href="#" class="hover:text-orange-400">Productos</a>
-            <a href="#" class="hover:text-orange-400">Contacto</a>
+    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 p-4 border-b border-pink-100">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex flex-col">
+                <h1 class="text-2xl font-light tracking-[0.2em] text-pink-400 uppercase">
+                    Vida<span class="font-bold text-gray-700">nuvia</span>
+                </h1>
+                <span class="text-[10px] text-pink-300 tracking-[0.3em] uppercase -mt-1">Estética & Bienestar</span>
+            </div>
+            <div class="hidden md:flex space-x-8 text-sm font-medium tracking-wide text-gray-500">
+                <a href="#productos" class="hover:text-pink-400 transition-colors">CATÁLOGO</a>
+                <a href="#contacto" class="hover:text-pink-400 transition-colors">CONTACTO</a>
+            </div>
         </div>
     </nav>
 
-    <header class="py-20 text-center bg-white border-b border-gray-200">
-        <h2 class="text-4xl font-extrabold text-[#1B263B] mb-4">Solo lo mejor para tu mejor amigo.</h2>
-        <p class="text-gray-600 max-w-2xl mx-auto">Equipamiento de alto rendimiento diseñado para el estilo de vida urbano de hoy.</p>
+    <header class="relative py-20 bg-gradient-to-r from-pink-100 to-white overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <h2 class="text-4xl md:text-5xl font-extralight text-gray-800 mb-4">Tu ritual de belleza, <br> <span class="font-semibold text-pink-400">redefinido.</span></h2>
+            <p class="text-gray-500 max-w-lg mx-auto mb-8">Tecnología avanzada y herramientas de bienestar para resaltar tu brillo natural desde casa.</p>
+            <a href="#productos" class="bg-pink-400 text-white px-8 py-3 rounded-full font-semibold hover:bg-pink-500 transition-all shadow-lg shadow-pink-200">
+                Explorar Colección
+            </a>
+        </div>
+        <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-96 h-96 bg-pink-200 rounded-full blur-3xl opacity-30"></div>
     </header>
 
     <section class="container mx-auto py-12 px-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4">
-    {% for p in productos %}
-    <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
-        
-        <div class="relative aspect-square w-full bg-gray-100">
-            <img src="{{ url_for('static', filename='img/' + p.img) }}" 
-                 alt="{{ p.nombre }}" 
-                 class="absolute inset-0 w-full h-full object-contain p-4">
-            </div>
+        <div id="productos" class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                {% for p in productos %}
+                <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-500 group flex flex-col h-full overflow-hidden border border-pink-50">
+                    
+                    <div class="relative aspect-square w-full bg-gray-50/50 overflow-hidden">
+                        <img src="{{ url_for('static', filename='img/' + p.img) }}" 
+                            alt="{{ p.nombre }}" 
+                            class="absolute inset-0 w-full h-full object-contain p-8 transform group-hover:scale-105 transition-transform duration-700">
+                    </div>
 
-        <div class="p-6">
-            <h3 class="text-xl font-bold text-gray-800 mb-2">{{ p.nombre }}</h3>
-            <p class="text-gray-600 text-sm mb-4 h-12 overflow-hidden">{{ p.desc }}</p>
-            <div class="flex justify-between items-center">
-                <span class="text-2xl font-extrabold text-green-600">${{ p.precio }}</span>
-                <a href="{{ url_for('comprar', id_producto=p.id) }}" 
-                   class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors">
-                    Comprar
-                </a>
-            </div>
-        </div>
-    </div>
-    {% endfor %}
-</div>
-    </section>
-
-    <section class="bg-[#1B263B] text-white py-16 px-6">
-        <div class="container mx-auto max-w-4xl text-center">
-            <h2 class="text-3xl font-bold mb-6 text-[#E0E1DD]">Pasión por el Bienestar Canino</h2>
-            <p class="text-lg text-gray-300 leading-relaxed">
-                En <strong>Elite Canina</strong>, no solo vendemos accesorios; seleccionamos herramientas que mejoran la calidad de vida de tu mejor amigo. Nacimos en Buenos Aires con una misión clara: ofrecer productos de alta gama, duraderos y diseñados para el confort real de cada perro.
-            </p>
-            <div class="flex justify-center gap-8 mt-10">
-                <div>
-                    <span class="block text-3xl font-bold text-[#E67E22]">100%</span>
-                    <span class="text-sm text-gray-400">Calidad Premium</span>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <div class="flex-grow">
+                            <h3 class="text-xl font-medium text-gray-800 tracking-tight leading-tight">
+                                {{ p.nombre }}
+                            </h3>
+                            <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+                                {{ p.desc }}
+                            </p>
+                        </div>
+                        
+                        <div class="mt-8 pt-6 border-t border-pink-50">
+                            <div class="flex flex-col">
+                                <span class="text-2xl font-light text-gray-900 mb-5">
+                                    <span class="text-pink-400 font-semibold text-base">$</span>{{ p.precio }}
+                                </span>
+                                
+                                <a href="{{ url_for('comprar', id_producto=p.id) }}" 
+                                class="w-full block text-center bg-gray-900 hover:bg-pink-400 text-white text-[10px] tracking-[0.3em] uppercase font-bold py-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-pink-200">
+                                    Añadir al Ritual
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <span class="block text-3xl font-bold text-[#E67E22]">+500</span>
-                    <span class="text-sm text-gray-400">Clientes Felices</span>
-                </div>
-                <div>
-                    <span class="block text-3xl font-bold text-[#E67E22]">24hs</span>
-                    <span class="text-sm text-gray-400">Soporte Post-Venta</span>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </section>
 
-    <footer class="bg-[#0D1B2A] text-gray-400 py-10 px-6 border-t border-gray-800">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="text-xl font-bold text-white">
-                ELITE<span class="text-[#E67E22]">CANINA</span>
+    <footer class="bg-white border-t border-pink-100 pt-16 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                
+                <div class="flex flex-col space-y-4">
+                    <h2 class="text-2xl font-light tracking-[0.2em] text-pink-400 uppercase">
+                        Vida<span class="font-bold text-gray-700">nuvia</span>
+                    </h2>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Elevando tu rutina de cuidado personal con tecnología de vanguardia y bienestar consciente.
+                    </p>
+                </div>
+
+                <div class="flex flex-col space-y-4">
+                    <h4 class="text-gray-800 font-bold text-xs uppercase tracking-widest">Navegación</h4>
+                    <nav class="flex flex-col space-y-2 text-sm text-gray-500">
+                        <a href="#productos" class="hover:text-pink-400 transition-colors">Catálogo Tech</a>
+                        <a href="#" class="hover:text-pink-400 transition-colors">Preguntas Frecuentes</a>
+                        <a href="#" class="hover:text-pink-400 transition-colors">Políticas de Envío</a>
+                    </nav>
+                </div>
+
+                <div class="flex flex-col space-y-4">
+                    <h4 class="text-gray-800 font-bold text-xs uppercase tracking-widest">Contacto</h4>
+                    <div class="text-sm text-gray-500 space-y-2">
+                        <p class="flex items-center">
+                            <span class="w-5 text-pink-300">W</span> WhatsApp: +54 9 11 2542-7382
+                        </p>
+                        <p class="flex items-center">
+                            <span class="w-5 text-pink-300">I</span> Instagram: @vidanuvia
+                        </p>
+                        <p class="flex items-center">
+                            <span class="w-5 text-pink-300">E</span> hola@vidanuvia.com.ar
+                        </p>
+                    </div>
+                </div>
             </div>
-            
-            <p class="text-sm">© 2026 Elite Canina - Todos los derechos reservados.</p>
-            
-            <div class="flex gap-8 items-center">
-                <a href="https://wa.me/5491125427382?text=Hola%20Elite%20Canina!%20Me%20interesa%20comprar%20un%20producto."target="_blank" class="hover:text-green-400 transition-colors">
-                <i class="fab fa-whatsapp"></i> WhatsApp
-                </a>
 
-                <a href="https://facebook.com/elitecanina" 
-                target="_blank" 
-                class="hover:text-blue-400 transition-colors">
-                    <i class="fab fa-facebook"></i> Facebook
-                </a>
-
-                <a href="https://instagram.com/elitecanina" 
-                target="_blank" 
-                class="hover:text-pink-400 transition-colors">
-                    <i class="fab fa-instagram"></i> Instagram
-                </a>
+            <div class="border-t border-pink-50 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-[10px] text-gray-400 uppercase tracking-widest">
+                <p>&copy; 2026 Vidanuvia. Todos los derechos reservados.</p>
+                <div class="flex space-x-6">
+                    <span>Buenos Aires, Argentina</span>
+                    <span class="text-pink-300 font-bold">Hecho con Amor</span>
+                </div>
             </div>
         </div>
     </footer>
 
-    <a href="https://wa.me/5491125427382" target="_blank" 
-    class="fixed bottom-6 right-6 bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:scale-110 transition-transform z-50 flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.96L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+    <a href="https://wa.me/5491125427382?text=Hola%20Elite%20Canina!%20Tengo%20una%20consulta." 
+        target="_blank" 
+        class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-2xl hover:bg-green-600 transition-all hover:scale-110 z-50 flex items-center justify-center border-2 border-white">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
         </svg>
     </a>
 

@@ -14,45 +14,45 @@ sdk = mercadopago.SDK(ACCESS_TOKEN)
 PRODUCTOS = [
     {
         "id": "1", 
-        "nombre": "Pretal con Alitas", 
-        "precio": 6500, 
-        "img": "alitas.webp", 
-        "desc": "Diseño exclusivo y tierno para gatos o perros pequeños. Ajustable y seguro."
-    },
+        "nombre": "Masajeador Facial Ultrasónico", 
+        "precio": 24500, 
+        "img": "ultrasonico.webp", 
+        "desc": "Tecnología de iones para rejuvenecimiento facial y limpieza profunda."
+        },
     {
         "id": "2", 
-        "nombre": "Serpiente Chillona", 
-        "precio": 12500, 
-        "img": "serpiente.webp", 
-        "desc": "Juguete interactivo de gran tamaño con sonido. Estimula el instinto de juego."
-    },
+        "nombre": "Succionador de Poros Digital", 
+        "precio": 21000, 
+        "img": "succionador.webp", 
+        "desc": "Elimina puntos negros con 5 niveles de succión y pantalla LED."
+        },
     {
         "id": "3", 
-        "nombre": "Comedero Doble Cartera", 
-        "precio": 25000, 
-        "img": "comedero.webp", 
-        "desc": "Diseño premium plegable tipo cartera. Ideal para viajes y paseos con estilo."
-    },
+        "nombre": "Máscara LED Facial 7 Colores", 
+        "precio": 45000, 
+        "img": "mascara.webp", 
+        "desc": "Tratamiento de fototerapia profesional para manchas y arrugas."
+        },
     {
         "id": "4", 
-        "nombre": "Correa de Adiestramiento", 
-        "precio": 11000, 
-        "img": "correa.webp", 
-        "desc": "Correa reforzada de alta resistencia para paseos controlados y seguros."
-    },
+        "nombre": "Depilador Facial LED Pro", 
+        "precio": 15500, 
+        "img": "depilador.webp", 
+        "desc": "Remoción de vello facial sin dolor, compacto y recargable USB."
+        },
     {
         "id": "5", 
-        "nombre": "Tirador Peluche Flor", 
-        "precio": 28500, 
-        "img": "peluche.webp", 
-        "desc": "Juguete de arrastre premium con texturas suaves y costuras reforzadas."
-    },
+        "nombre": "Kit Gua Sha Cuarzo Rosa", 
+        "precio": 18900, 
+        "img": "guasha.webp", 
+        "desc": "Piedra natural para drenaje linfático y definición del rostro."
+        },
     {
         "id": "6", 
-        "nombre": "Pelota Caucho con Soga", 
-        "precio": 7500, 
-        "img": "pelota.webp", 
-        "desc": "Material ultra resistente. Ideal para juegos de lanzar y recuperar."
+        "nombre": "Cepillo Limpiador Silicona", 
+        "precio": 12500, 
+        "img": "cepillo.webp", 
+        "desc": "Vibración sónica para una limpieza profunda y masaje facial."
     }
 ]
 
@@ -62,28 +62,19 @@ def index():
 
 @app.route('/comprar/<id_producto>')
 def comprar(id_producto):
-    # Buscamos el producto en la lista
     producto = next((p for p in PRODUCTOS if p['id'] == id_producto), None)
-    
     if not producto:
         return "Producto no encontrado", 404
 
-    # CREAR PREFERENCIA EN MERCADO PAGO
-    preference_data = {
-        "items": [
-            {
-                "title": producto['nombre'],
-                "quantity": 1,
-                "unit_price": producto['precio'],
-            }
-        ],
-        "back_urls": {
-            "success": "https://elitecanina.onrender.com",
-            "failure": "https://elitecanina.onrender.com",
-            "pending": "https://elitecanina.onrender.com"
-        },
-        "auto_return": "approved",
-    }
+    # Creamos el mensaje para WhatsApp
+    mensaje = f"Hola Elite Canina! Me interesa comprar el producto: {producto['nombre']}"
+    # Codificamos el mensaje para que funcione en un link (reemplaza espacios por %20)
+    import urllib.parse
+    mensaje_codificado = urllib.parse.quote(mensaje)
+    
+    # Redirigimos directamente al WhatsApp con el mensaje personalizado
+    # Reemplaza el número por el tuyo
+    return redirect(f"https://wa.me/5491125427382?text={mensaje_codificado}")
 
     preference_response = sdk.preference().create(preference_data)
     preference = preference_response["response"]
